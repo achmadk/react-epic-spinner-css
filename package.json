@@ -1,7 +1,7 @@
 {
   "name": "@achmadk/react-epic-spinner-css",
   "description": "Reusable react implementation of epic-spinners",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./index.js",
   "module": "dist/react-epic-spinner-css.esm.js",
   "browser": "dist/react-epic-spinner-css.umd.min.js",
