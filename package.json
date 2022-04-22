@@ -1,0 +1,86 @@
+{
+  "name": "@achmadk/react-epic-spinner-css",
+  "description": "Reusable react implementation of epic-spinners",
+  "version": "0.0.2",
+  "main": "./index.js",
+  "module": "dist/react-epic-spinner-css.esm.js",
+  "browser": "dist/react-epic-spinner-css.umd.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-epic-spinner-css.esm.js",
+      "require": "./index.js"
+    },
+    "./dist/react-epic-spinner-css.css": "./dist/react-epic-spinner-css.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:achmadk/react-epic-spinner-css.git"
+  },
+  "author": "Achmad Kurnianto <achmad.kurnianto@gmail.com>",
+  "typings": "./typings/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "epic spinners",
+    "spinners"
+  ],
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-external-helpers": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@linaria/babel-preset": "3.0.0-beta.18",
+    "@linaria/rollup": "3.0.0-beta.18",
+    "@linaria/webpack-loader": "3.0.0-beta.18",
+    "@rollup/plugin-babel": "5.3.1",
+    "@rollup/plugin-commonjs": "21.1.0",
+    "@rollup/plugin-node-resolve": "13.2.1",
+    "@rollup/plugin-replace": "4.0.0",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/addons": "6.4.22",
+    "@storybook/preset-typescript": "3.0.0",
+    "@storybook/react": "^6.4.22",
+    "@storybook/theming": "6.4.22",
+    "@types/react": "^16.9.51",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "fork-ts-checker-webpack-plugin": "7.2.6",
+    "prop-types": "^15.8.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-is": "^16.13.1",
+    "rollup": "^2.70.2",
+    "rollup-plugin-css-only": "3.1.0",
+    "rollup-plugin-size-snapshot": "^0.12.0",
+    "rollup-plugin-terser": "7.0.2",
+    "ts-loader": "9.2.8",
+    "typescript": "4.6.3"
+  },
+  "dependencies": {
+    "@linaria/core": "3.0.0-beta.18",
+    "@linaria/react": "3.0.0-beta.18",
+    "@linaria/shaker": "3.0.0-beta.18"
+  },
+  "peerDependencies": {
+    "react": ">=0.14.x",
+    "react-dom": ">=0.14.x"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "prepublish": "yarn build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "files": [
+    "dist",
+    "typings/index.d.ts",
+    "index.js"
+  ],
+  "packageManager": "yarn@3.2.0"
+}
