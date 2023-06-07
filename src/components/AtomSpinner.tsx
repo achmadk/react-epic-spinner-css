@@ -1,7 +1,8 @@
-import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
+import { styled } from '@linaria/react'
 
-const Atom = styled.div`
+import { EpicProps, StyledProps, addRefProps } from '../utils';
+
+const Atom = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   overflow: hidden;
@@ -76,20 +77,20 @@ const Atom = styled.div`
   }
 `;
 
-const AtomSpinnerBase = ({
+const AtomSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 60,
   animationDuration = 1000,
   color = '#fff',
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <Atom
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
-    className={`atom-spinner${className ? ' ' + className : ''}`}
+    className={`atom-spinner${className ? ` ${className}` : ''}`}
     {...props}
   >
     <div className="spinner-inner">

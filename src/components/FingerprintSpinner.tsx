@@ -1,7 +1,14 @@
 import { styled } from "@linaria/react";
-import { addRefProps } from "../utils/index";
+import { useCallback } from "react";
 
-const RingSpinner = styled.div`
+import { EpicProps, StyledProps, addRefProps } from "../utils";
+
+type RingSpinnerProps = StyledProps & {
+  containerPadding: number
+  ringBase: number
+}
+
+const RingSpinner = styled.div<RingSpinnerProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   padding: ${(props) => props.containerPadding}px;
@@ -79,24 +86,22 @@ const RingSpinner = styled.div`
   }
 `;
 
-function generateRings(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="spinner-ring" />
-  ));
-}
-
-const FingerprintSpinnerBase = ({
+const FingerprintSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 60,
   color = "#fff",
   animationDuration = 1500,
   className = "",
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const ringsNum = 9;
   const containerPadding = 2;
   const outerRingSize = size - containerPadding * 2;
   const ringBase = outerRingSize / ringsNum;
+
+  const generateRings = useCallback((num: number) => Array.from({ length: num }).map((_, index) => (
+    <div key={`spinner-ring-${index}`} className="spinner-ring" />
+  )),[]);
 
   return (
     <RingSpinner
@@ -104,7 +109,7 @@ const FingerprintSpinnerBase = ({
       size={size}
       color={color}
       animationDuration={animationDuration}
-      className={`fingerprint-spinner${className ? " " + className : ""}`}
+      className={`fingerprint-spinner${className ? ` ${className}` : ""}`}
       ringBase={ringBase}
       containerPadding={containerPadding}
       {...props}

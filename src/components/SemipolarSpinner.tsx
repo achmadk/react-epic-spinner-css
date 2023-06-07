@@ -1,8 +1,9 @@
 import { styled } from '@linaria/react';
+import { useCallback } from 'react';
 
-import {  addRefProps } from '../utils/index';
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
 
-const Semipolar = styled.div`
+const Semipolar = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -87,30 +88,32 @@ const Semipolar = styled.div`
   }
 `;
 
-function generateSpinners(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="ring" />
-  ));
-}
-
-const SemipolarSpinnerBase = ({
+const SemipolarSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 65,
   color = '#fff',
   animationDuration = 2000,
   className = '',
   innerRef,
   ...props
-}) => (
-  <Semipolar
-    ref={innerRef}
-    size={size}
-    color={color}
-    animationDuration={animationDuration}
-    className={`semipolar-spinner${className ? ' ' + className : ''}`}
-    {...props}
-  >
-    {generateSpinners(5)}
-  </Semipolar>
-);
+}: PropType) => {
+  const generateSpinners = useCallback((num: number) => {
+    return Array.from({ length: num }).map((_, index) => (
+      <div key={`ring-${index}`} className="ring" />
+    ));
+  }, [])
+
+  return (
+    <Semipolar
+      ref={innerRef}
+      size={size}
+      color={color}
+      animationDuration={animationDuration}
+      className={`semipolar-spinner${className ? ` ${className}` : ''}`}
+      {...props}
+    >
+      {generateSpinners(5)}
+    </Semipolar>
+  )
+};
 
 export const SemipolarSpinner = addRefProps(SemipolarSpinnerBase);

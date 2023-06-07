@@ -1,7 +1,12 @@
 import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
 
-const Flower = styled.div`
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
+
+type FlowerProps = StyledProps & {
+  dotSize: number
+}
+
+const Flower = styled.div<FlowerProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   display: flex;
@@ -117,14 +122,14 @@ const Flower = styled.div`
   }
 `;
 
-const FlowerSpinnerBase = ({
+const FlowerSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 70,
   color = '#fff',
   animationDuration = 2500,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const dotSize = size / 7;
 
   return (
@@ -133,7 +138,7 @@ const FlowerSpinnerBase = ({
       size={size}
       color={color}
       animationDuration={animationDuration}
-      className={`flower-spinner${className ? ' ' + className : ''}`}
+      className={`flower-spinner${className ? ` ${className}` : ''}`}
       dotSize={dotSize}
       {...props}
     >

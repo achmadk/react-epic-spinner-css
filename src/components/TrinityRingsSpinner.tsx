@@ -1,8 +1,12 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import {  EpicProps, StyledProps, addRefProps } from '../utils/index';
 
-const Trinity = styled.div`
+type TrinityProps = StyledProps & {
+  outerWidth: number
+}
+
+const Trinity = styled.div<TrinityProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   padding: 3px;
@@ -72,14 +76,14 @@ const Trinity = styled.div`
   }
 `;
 
-const TrinityRingsSpinnerBase = ({
+const TrinityRingsSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 66,
   color = '#fff',
   animationDuration = 1500,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const containerPadding = 3;
   const outerWidth = size - containerPadding * 2;
 
@@ -89,7 +93,7 @@ const TrinityRingsSpinnerBase = ({
       size={size}
       color={color}
       animationDuration={animationDuration}
-      className={`trinity-rings-spinner${className ? ' ' + className : ''}`}
+      className={`trinity-rings-spinner${className ? ` ${className}` : ''}`}
       outerWidth={outerWidth}
       {...props}
     >

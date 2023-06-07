@@ -1,8 +1,8 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
 
-const LoadingRhombus = styled.div`
+const LoadingRhombus = styled.div<StyledProps>`
   width: ${(props) => props.size * 4}px;
   height: ${(props) => props.size}px;
   position: relative;
@@ -45,20 +45,20 @@ const LoadingRhombus = styled.div`
   }
 `;
 
-function generateSpinners(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="rhombus" />
+const generateSpinners = (num: number) => {
+  return Array.from({ length: num }).map((_, index) => (
+    <div key={`spinner-${index}`} className="rhombus" />
   ));
 }
 
-const LoopingRhombusesSpinnerBase = ({
+const LoopingRhombusesSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 15,
   color = '#fff',
   animationDuration = 2500,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const num = 3;
 
   return (
@@ -67,7 +67,7 @@ const LoopingRhombusesSpinnerBase = ({
       size={size}
       color={color}
       animationDuration={animationDuration}
-      className={`looping-rhombuses-spinner${className ? ' ' + className : ''}`}
+      className={`looping-rhombuses-spinner${className ? ` ${className}` : ''}`}
       {...props}
     >
       {generateSpinners(num)}

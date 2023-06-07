@@ -1,8 +1,9 @@
 import { styled } from '@linaria/react';
+import { useCallback } from 'react';
 
-import {  addRefProps } from '../utils/index';
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
 
-const ScalingSquares = styled.div`
+const ScalingSquares = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -71,30 +72,32 @@ const ScalingSquares = styled.div`
   }
 `;
 
-function generateSpinners(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="square" />
-  ));
-}
-
-const ScalingSquaresSpinnerBase = ({
+const ScalingSquaresSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 65,
   color = '#fff',
   animationDuration = 1250,
   className = '',
   innerRef,
   ...props
-}) => (
-  <ScalingSquares
-    ref={innerRef}
-    size={size}
-    color={color}
-    animationDuration={animationDuration}
-    className={`scaling-squares-spinner${className ? ' ' + className : ''}`}
-    {...props}
-  >
-    {generateSpinners(4)}
-  </ScalingSquares>
-);
+}: PropType) => {
+  const generateSpinners = useCallback((num: number) => {
+    return Array.from({ length: num }).map((_, index) => (
+      <div key={`square-${index}`} className="square" />
+    ));
+  }, [])
+
+  return (
+    <ScalingSquares
+      ref={innerRef}
+      size={size}
+      color={color}
+      animationDuration={animationDuration}
+      className={`scaling-squares-spinner${className ? ` ${className}` : ''}`}
+      {...props}
+    >
+      {generateSpinners(4)}
+    </ScalingSquares>
+  );
+};
 
 export const ScalingSquaresSpinner = addRefProps(ScalingSquaresSpinnerBase);

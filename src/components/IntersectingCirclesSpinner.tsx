@@ -1,7 +1,13 @@
 import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
 
-const IntersectingCircles = styled.div`
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
+import { useCallback } from 'react';
+
+type IntersectingCirclesProps = StyledProps & {
+  circleSize: number
+}
+
+const IntersectingCircles = styled.div<IntersectingCirclesProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -70,21 +76,22 @@ const IntersectingCircles = styled.div`
   }
 `;
 
-function generateCircles(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <span key={index} className="circle" />
-  ));
-}
-
-const IntersectingCirclesSpinnerBase = ({
+const IntersectingCirclesSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 70,
   color = '#fff',
   animationDuration = 1200,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const circleSize = size / 2;
+
+  const generateCircles = useCallback((num: number) => {
+    return Array.from({ length: num }).map((_, index) => (
+      <span key={`circle-${index}`} className="circle" />
+    ));
+  }, [])
+
 
   return (
     <IntersectingCircles
@@ -93,7 +100,7 @@ const IntersectingCirclesSpinnerBase = ({
       color={color}
       animationDuration={animationDuration}
       className={`intersecting-circles-spinner${
-        className ? ' ' + className : ''
+        className ? ` ${className}` : ''
       }`}
       circleSize={circleSize}
       {...props}

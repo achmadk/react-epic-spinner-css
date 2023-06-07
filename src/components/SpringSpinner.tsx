@@ -1,8 +1,8 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import { EpicProps, StyledProps, addRefProps } from '../utils';
 
-const Spring = styled.div`
+const Spring = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
 
@@ -50,20 +50,20 @@ const Spring = styled.div`
   }
 `;
 
-const SpringSpinnerBase = ({
+const SpringSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 70,
   color = '#fff',
   animationDuration = 3000,
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <Spring
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
-    className={`spring-spinner${className ? ' ' + className : ''}`}
+    className={`spring-spinner${className ? ` ${className}` : ''}`}
     {...props}
   >
     <div className="spring-spinner-part top">

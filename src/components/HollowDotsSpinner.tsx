@@ -1,8 +1,13 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import {  EpicProps, StyledProps, addRefProps } from '../utils/index';
 
-const HollowSpinner = styled.div`
+type HollowSpinnerProps = StyledProps & {
+  dotsNum: number
+  animationDelay: number
+}
+
+const HollowSpinner = styled.div<HollowSpinnerProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => 2 * props.size * props.dotsNum}px;
 
@@ -41,20 +46,20 @@ const HollowSpinner = styled.div`
   }
 `;
 
-function generateDots(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="dot" />
+const generateDots = (num: number) => {
+  return Array.from({ length: num }).map((_, index) => (
+    <div key={`dot-${index}`} className="dot" />
   ));
 }
 
-const HollowDotsSpinnerBase = ({
+const HollowDotsSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 15,
   color = '#fff',
   animationDuration = 1000,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const dotsNum = 3;
   const animationDelay = animationDuration * 0.3;
 
@@ -64,7 +69,7 @@ const HollowDotsSpinnerBase = ({
       size={size}
       color={color}
       animationDuration={animationDuration}
-      className={`hollow-dots-spinner${className ? ' ' + className : ''}`}
+      className={`hollow-dots-spinner${className ? ` ${className}` : ''}`}
       dotsNum={dotsNum}
       animationDelay={animationDelay}
       {...props}

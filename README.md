@@ -1,11 +1,11 @@
 # React Epic Spinner CSS
 
-This library is the React implementation of Vue [epic-spinners](http://epic-spinners.epicmax.co/) by [EpicMax](https://github.com/epicmaxco/epic-spinners)
+This library represents the React adaptation of [EpicMax's](https://github.com/epicmaxco/epic-spinners) Vue [epic-spinners](http://epic-spinners.epicmax.co/)
 
-Comparing to `react-epic-spinners`, this library has some advantages:
-1. No need `styled-components` dependency, which may break your web app because has multiple versions of `styled-components`.
-1. Has smaller size because each components style written in CSS-in-JS paradigm has been generated into separate CSS file. Moreover, you can get optimized CSS file only use spinner component with the help of `postcss` and `purgecss`.
-1. Ref forwarding if you want to get DOM of our components.
+Compared to `react-epic-spinners`, this library offers several advantages for professional use:
+1. Eliminates the need for the `styled-components` dependency, which can potentially cause issues in your web application due to multiple versions of `styled-components`.
+1. Features a smaller size, as each component's style, originally written in the CSS-in-JS paradigm, has been generated into a separate CSS file. Additionally, you can obtain an optimized CSS file for exclusive use with the spinner component by utilizing `postcss` and `purgecss`.
+1. Supports ref forwarding, allowing you to access the DOM of our components if required.
 
 ## Installation
 
@@ -21,6 +21,15 @@ Or Yarn
 yarn add @achmadk/react-epic-spinner-css
 ```
 
+## The transition from version `0.0.3` to `1.0.0`
+1. Update `react` to version 17.0.0, which incorporates support for hooks and allows importing from `react/jsx-runtime`
+2. Adjust the CSS file import method accordingly
+
+```diff
+- import from '@achmadk/react-epic-spinner-css/dist/react-epic-spinner-css.css'
++ import from '@achmadk/react-epic-spinner-css/dist/style.css'
+```
+
 ## Demo
 
 An online demo is available [here](https://bondz.github.io/react-epic-spinners/)
@@ -30,14 +39,14 @@ An online demo is available [here](https://bondz.github.io/react-epic-spinners/)
 import `react-epic-spinner-css.css` first
 
 ```ts
-import '@achmadk/react-epic-spinner-css/dist/react-epic-spinner-css.css'
+import '@achmadk/react-epic-spinner-css/dist/style.css'
 ```
 
-Basically, all components accept all props from `<div>` element, like `style`, `className`, `onClick`, etc. There are optional props provided to customize ones:
+All components inherit properties from the `<div>` element, such as `style`, `className`, `onClick`, and so on. There are optional props provided to customize ones:
 
-* `size` `[number]`: Specifies how large the spinner should be rendered
-* `color` `[string]`: defaults to `#fff`. Specifies the color of the spinner.
-* `animationDelay` `[number]`: Specifies the timing of the spinner animation. Lower numbers mean the animations restart faster.
+* `size` `[number]`: Determines the rendering size of the spinner.
+* `color` `[string]`: defaults to `#fff`. Defines the spinner's color.
+* `animationDelay` `[number]`: Indicates the spinner animation's duration. Lower values result in quicker animation restarts.
 
 ### Examples
 
@@ -56,26 +65,26 @@ import { AtomSpinner } from '@achmadk/react-epic-spinner-css'
 import { ... } from '@achmadk/react-epic-spinner-css'
 ```
 
-* [AtomSpinner](/src/components/AtomSpinner.js)
-* [BreedingRhombusSpinner](/src/components/BreedingRhombusSpinner.js)
-* [CirclesToRhombusesSpinner](/src/components/CirclesToRhombusesSpinner.js)
-* [FingerprintSpinner](/src/components/FingerprintSpinner.js)
-* [FlowerSpinner](/src/components/FlowerSpinner.js)
-* [FulfillingBouncingCircleSpinner](/src/components/FulfillingBouncingCircleSpinner.js)
-* [FulfillingSquareSpinner](/src/components/FulfillingSquareSpinner.js)
-* [HalfCircleSpinner](/src/components/HalfCircleSpinner.js)
-* [HollowDotsSpinner](/src/components/HollowDotsSpinner.js)
-* [IntersectingCirclesSpinner](/src/components/IntersectingCirclesSpinner.js)
-* [LoopingRhombusesSpinner](/src/components/LoopingRhombusesSpinner.js)
-* [OrbitSpinner](/src/components/OrbitSpinner.js)
-* [PixelSpinner](/src/components/PixelSpinner.js)
-* [RadarSpinner](/src/components/RadarSpinner.js)
-* [ScalingSquaresSpinner](/src/components/ScalingSquaresSpinner.js)
-* [SelfBuildingSquareSpinner](/src/components/SelfBuildingSquareSpinner.js)
-* [SemipolarSpinner](/src/components/SemipolarSpinner.js)
-* [SpringSpinner](/src/components/SpringSpinner.js)
-* [SwappingSquaresSpinner](/src/components/SwappingSquaresSpinner.js)
-* [TrinityRingsSpinner](/src/components/TrinityRingsSpinner.js)
+* [AtomSpinner](/src/components/AtomSpinner.tsx)
+* [BreedingRhombusSpinner](/src/components/BreedingRhombusSpinner.tsx)
+* [CirclesToRhombusesSpinner](/src/components/CirclesToRhombusesSpinner.tsx)
+* [FingerprintSpinner](/src/components/FingerprintSpinner.tsx)
+* [FlowerSpinner](/src/components/FlowerSpinner.tsx)
+* [FulfillingBouncingCircleSpinner](/src/components/FulfillingBouncingCircleSpinner.tsx)
+* [FulfillingSquareSpinner](/src/components/FulfillingSquareSpinner.tsx)
+* [HalfCircleSpinner](/src/components/HalfCircleSpinner.tsx)
+* [HollowDotsSpinner](/src/components/HollowDotsSpinner.tsx)
+* [IntersectingCirclesSpinner](/src/components/IntersectingCirclesSpinner.tsx)
+* [LoopingRhombusesSpinner](/src/components/LoopingRhombusesSpinner.tsx)
+* [OrbitSpinner](/src/components/OrbitSpinner.tsx)
+* [PixelSpinner](/src/components/PixelSpinner.tsx)
+* [RadarSpinner](/src/components/RadarSpinner.tsx)
+* [ScalingSquaresSpinner](/src/components/ScalingSquaresSpinner.tsx)
+* [SelfBuildingSquareSpinner](/src/components/SelfBuildingSquareSpinner.tsx)
+* [SemipolarSpinner](/src/components/SemipolarSpinner.tsx)
+* [SpringSpinner](/src/components/SpringSpinner.tsx)
+* [SwappingSquaresSpinner](/src/components/SwappingSquaresSpinner.tsx)
+* [TrinityRingsSpinner](/src/components/TrinityRingsSpinner.tsx)
 
 ### CSS Optimization
 

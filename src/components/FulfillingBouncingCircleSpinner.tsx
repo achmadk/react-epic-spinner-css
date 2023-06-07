@@ -1,8 +1,8 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import { EpicProps, StyledProps, addRefProps } from '../utils';
 
-const BouncingCircle = styled.div`
+const BouncingCircle = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -108,21 +108,21 @@ const BouncingCircle = styled.div`
   }
 `;
 
-const FulfillingBouncingCircleSpinnerBase = ({
+const FulfillingBouncingCircleSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 60,
   color = '#fff',
   animationDuration = 4000,
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <BouncingCircle
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
     className={`fulfilling-bouncing-circle-spinner${
-      className ? ' ' + className : ''
+      className ? ` ${className}` : ''
     }`}
     {...props}
   >

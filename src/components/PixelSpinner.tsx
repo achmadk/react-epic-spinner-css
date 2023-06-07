@@ -1,7 +1,12 @@
 import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
 
-const Pixels = styled.div`
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
+
+type PixelsProps = StyledProps & {
+  pixelSize: number
+}
+
+const Pixels = styled.div<PixelsProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   display: flex;
@@ -70,14 +75,14 @@ const Pixels = styled.div`
   }
 `;
 
-const PixelSpinnerBase = ({
+const PixelSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 70,
   color = '#fff',
   animationDuration = 1500,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const pixelSize = size / 7;
 
   return (

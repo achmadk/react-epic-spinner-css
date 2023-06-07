@@ -1,7 +1,11 @@
 import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
+import { useCallback } from 'react';
 
-const Radar = styled.div`
+import { EpicProps, StyledProps, addRefProps } from '../utils';
+
+type RadarProps = StyledProps & { borderWidth: number }
+
+const Radar = styled.div<RadarProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -56,25 +60,25 @@ const Radar = styled.div`
   }
 `;
 
-function generateSpinners(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="circle">
-      <div className="circle-inner-container">
-        <div className="circle-inner" />
-      </div>
-    </div>
-  ));
-}
-
-const RadarSpinnerBase = ({
+const RadarSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 110,
   color = '#fff',
   animationDuration = 2000,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const borderWidth = (size * 5) / 110;
+
+  const generateSpinners = useCallback((num: number) => {
+    return Array.from({ length: num }).map((_, index) => (
+      <div key={`spinner-${index}`} className="circle">
+        <div className="circle-inner-container">
+          <div className="circle-inner" />
+        </div>
+      </div>
+    ));
+  }, [])
 
   return (
     <Radar
@@ -82,7 +86,7 @@ const RadarSpinnerBase = ({
       size={size}
       color={color}
       animationDuration={animationDuration}
-      className={`radar-spinner${className ? ' ' + className : ''}`}
+      className={`radar-spinner${className ? ` ${className}` : ''}`}
       borderWidth={borderWidth}
       {...props}
     >

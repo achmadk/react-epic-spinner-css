@@ -1,7 +1,11 @@
 import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
+import { useCallback } from 'react';
 
-const BreedingSpinner = styled.div`
+import { EpicProps, StyledProps, addRefProps } from '../utils';
+
+type BreedingSpinnerProps = StyledProps & { delayModifier: number }
+
+const BreedingSpinner = styled.div<BreedingSpinnerProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -125,32 +129,33 @@ const BreedingSpinner = styled.div`
   }
 `;
 
-function generateRhombusChildren(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className={`rhombus child-${index + 1}`} />
-  ));
-}
-
-const BreedingRhombusSpinnerBase = ({
+const BreedingRhombusSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 150,
   color = '#fff',
   animationDuration = 2000,
   className = '',
   innerRef,
   ...props
-}) => (
-  <BreedingSpinner
-    ref={innerRef}
-    size={size}
-    color={color}
-    animationDuration={animationDuration}
-    className={`breeding-rhombus-spinner${className ? ' ' + className : ''}`}
-    delayModifier={animationDuration * 0.05}
-    {...props}
-  >
-    {generateRhombusChildren(8)}
-    <div className="rhombus big" />
-  </BreedingSpinner>
-);
+}: PropType) => {
+  const generateRhombusChildren = useCallback((num: number) => {
+    return Array.from({ length: num }).map((_, index) => (
+      <div key={`rhombus-child-${index}`} className={`rhombus child-${index + 1}`} />
+    ))
+  }, [])
+  return (
+    <BreedingSpinner
+      ref={innerRef}
+      size={size}
+      color={color}
+      animationDuration={animationDuration}
+      className={`breeding-rhombus-spinner${className ? ` ${className}` : ''}`}
+      delayModifier={animationDuration * 0.05}
+      {...props}
+    >
+      {generateRhombusChildren(8)}
+      <div className="rhombus big" />
+    </BreedingSpinner>
+  )
+};
 
 export const BreedingRhombusSpinner = addRefProps(BreedingRhombusSpinnerBase);

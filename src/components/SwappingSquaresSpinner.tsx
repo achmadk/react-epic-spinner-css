@@ -1,8 +1,8 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import { EpicProps, StyledProps, addRefProps } from '../utils';
 
-const SwappingSquare = styled.div`
+const SwappingSquare = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -64,26 +64,26 @@ const SwappingSquare = styled.div`
   }
 `;
 
-function generateSpinners(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="square" />
+const generateSpinners = (num: number) => {
+  return Array.from({ length: num }).map((_, index) => (
+    <div key={`square-${index}`} className="square" />
   ));
 }
 
-const SwappingSquaresSpinnerBase = ({
+const SwappingSquaresSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 65,
   color = '#fff',
   animationDuration = 1000,
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <SwappingSquare
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
-    className={`swapping-squares-spinner${className ? ' ' + className : ''}`}
+    className={`swapping-squares-spinner${className ? ` ${className}` : ''}`}
     {...props}
   >
     {generateSpinners(4)}

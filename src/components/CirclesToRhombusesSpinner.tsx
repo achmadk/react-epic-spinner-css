@@ -1,8 +1,14 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import { EpicProps, StyledProps, addRefProps } from '../utils';
 
-const CircleRhombus = styled.div`
+type CircleRhombusProps = StyledProps & {
+  circleMarginLeft: number
+  circleNum: number
+  delay: number
+}
+
+const CircleRhombus = styled.div<CircleRhombusProps>`
   height: ${(props) => props.size}px;
   width: ${(props) =>
     (props.size + props.circleMarginLeft) * props.circleNum}px;
@@ -55,20 +61,20 @@ const CircleRhombus = styled.div`
   }
 `;
 
-function generateRhombusChildren(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className="circle" />
+const generateRhombusChildren = (num: number) => {
+  return Array.from({ length: num }).map((_, index) => (
+    <div key={`child-${index}`} className="circle" />
   ));
 }
 
-const CirclesToRhombusesSpinnerBase = ({
+const CirclesToRhombusesSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 15,
   color = '#fff',
   animationDuration = 1200,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const circleMarginLeft = size * 1.125;
   const circleNum = 3;
   const delay = 150;
@@ -80,7 +86,7 @@ const CirclesToRhombusesSpinnerBase = ({
       color={color}
       animationDuration={animationDuration}
       className={`circles-to-rhombuses-spinner${
-        className ? ' ' + className : ''
+        className ? ` ${className}` : ''
       }`}
       circleMarginLeft={circleMarginLeft}
       delay={delay}

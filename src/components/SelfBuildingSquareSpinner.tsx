@@ -1,8 +1,13 @@
 import { styled } from '@linaria/react';
+import { useCallback } from 'react';
 
-import {  addRefProps } from '../utils/index';
+import { EpicProps, StyledProps, addRefProps } from '../utils';
 
-const BuildingSquare = styled.div`
+type BuildingSquareProps = StyledProps & {
+  initialTopPosition: number
+}
+
+const BuildingSquare = styled.div<BuildingSquareProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   top: ${(props) => -1 * props.initialTopPosition}px;
@@ -73,21 +78,21 @@ const BuildingSquare = styled.div`
   }
 `;
 
-function generateSpinners(num) {
-  return Array.from({ length: num }).map((val, index) => (
-    <div key={index} className={`square${index % 3 === 0 ? ' clear' : ''}`} />
-  ));
-}
-
-const SelfBuildingSquareSpinnerBase = ({
+const SelfBuildingSquareSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 40,
   color = '#fff',
   animationDuration = 6000,
   className = '',
   innerRef,
   ...props
-}) => {
+}: PropType) => {
   const initialTopPosition = size / 6;
+
+  const generateSpinners = useCallback((num: number) => {
+    return Array.from({ length: num }).map((_, index) => (
+      <div key={`spinner-${index}`} className={`square${index % 3 === 0 ? ' clear' : ''}`} />
+    ));
+  }, [])
 
   return (
     <BuildingSquare
@@ -96,7 +101,7 @@ const SelfBuildingSquareSpinnerBase = ({
       color={color}
       animationDuration={animationDuration}
       className={`self-building-square-spinner${
-        className ? ' ' + className : ''
+        className ? ` ${className}` : ''
       }`}
       initialTopPosition={initialTopPosition}
       {...props}

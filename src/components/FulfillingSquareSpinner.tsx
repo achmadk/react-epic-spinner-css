@@ -1,7 +1,8 @@
 import { styled } from '@linaria/react';
-import {  addRefProps } from '../utils/index';
 
-const SquareSpinner = styled.div`
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
+
+const SquareSpinner = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   position: relative;
@@ -60,20 +61,20 @@ const SquareSpinner = styled.div`
   }
 `;
 
-const FulfillingSquareSpinnerBase = ({
+const FulfillingSquareSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 50,
   color = '#fff',
   animationDuration = 4000,
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <SquareSpinner
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
-    className={`fulfilling-square-spinner${className ? ' ' + className : ''}`}
+    className={`fulfilling-square-spinner${className ? ` ${className}` : ''}`}
     {...props}
   >
     <div className="spinner-inner" />

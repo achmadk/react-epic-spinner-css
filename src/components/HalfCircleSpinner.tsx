@@ -1,8 +1,8 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import {  EpicProps, StyledProps, addRefProps } from '../utils';
 
-const HalfSpinner = styled.div`
+const HalfSpinner = styled.div<StyledProps>`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: 100%;
@@ -40,20 +40,20 @@ const HalfSpinner = styled.div`
   }
 `;
 
-const HalfCircleSpinnerBase = ({
+const HalfCircleSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 60,
   color = '#fff',
   animationDuration = 1000,
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <HalfSpinner
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
-    className={`half-circle-spinner${className ? ' ' + className : ''}`}
+    className={`half-circle-spinner${className ? ` ${className}` : ''}`}
     {...props}
   >
     <div className="circle circle-1" />

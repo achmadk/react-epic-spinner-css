@@ -1,8 +1,8 @@
 import { styled } from '@linaria/react';
 
-import {  addRefProps } from '../utils/index';
+import { EpicProps, StyledProps, addRefProps } from '../utils';
 
-const Orbit = styled.div`
+const Orbit = styled.div<StyledProps>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   border-radius: 50%;
@@ -66,20 +66,20 @@ const Orbit = styled.div`
   }
 `;
 
-const OrbitSpinnerBase = ({
+const OrbitSpinnerBase = <PropType extends EpicProps = EpicProps>({
   size = 50,
   color = '#fff',
   animationDuration = 1000,
   className = '',
   innerRef,
   ...props
-}) => (
+}: PropType) => (
   <Orbit
     ref={innerRef}
     size={size}
     color={color}
     animationDuration={animationDuration}
-    className={`orbit-spinner${className ? ' ' + className : ''}`}
+    className={`orbit-spinner${className ? ` ${className}` : ''}`}
     {...props}
   >
     <div className="orbit one" />
